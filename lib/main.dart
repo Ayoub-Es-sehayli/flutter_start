@@ -58,7 +58,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text('Go Touch That FAB'),
+            const Text('PR Change'),
             Text(
               '$_counter',
               style: Theme.of(context).textTheme.headlineMedium,
