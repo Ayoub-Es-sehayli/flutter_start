@@ -2,9 +2,9 @@ name: jyDoore - PR Testing and Integration Workflow
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "main" ]
   pull_request:
-    branches: [ "master" ]
+    branches: [ "main" ]
 
 jobs:
   build:
