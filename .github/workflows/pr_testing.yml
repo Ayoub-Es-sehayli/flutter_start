@@ -37,7 +37,7 @@ jobs:
       - name: run tests
         uses: reactivecircus/android-emulator-runner@v2
         with:
-          api-level: 29
+          api-level: 35
           # Run Integration Tests
           script: flutter driver -d emulator-5554 --driver=test_driver/app.dart --target=test_driver/app_test.dart
           avd-name: jydoore
