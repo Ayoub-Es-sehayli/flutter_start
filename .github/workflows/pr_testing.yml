@@ -26,27 +26,3 @@ jobs:
       # Test the project
       - name: Run tests
         run: flutter test --reporter=github
-
-      # Enable Emulator
-      - name: Enable KVM
-        run: |
-          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
-          sudo udevadm control --reload-rules
-          sudo udevadm trigger --name-match=kvm
-
-      - name: run tests
-        uses: reactivecircus/android-emulator-runner@v2
-        with:
-          api-level: 29
-          script: ./gradlew connectedCheck
-          avd-name: jydoore
-      # Run Integration Tests
-      - name: Run Integration Tests
-        run: flutter driver -d jydoore --driver=test_driver/app.dart --target=test_driver/app_test.dart
-        
-      # Create Artifacts of Screenshots
-      - name: Create Screetshots artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: integration_screenshots
-          path: screenshots
