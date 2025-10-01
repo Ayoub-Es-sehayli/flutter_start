@@ -38,11 +38,9 @@ jobs:
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: 29
-          script: ./gradlew connectedCheck
+          # Run Integration Tests
+          script: flutter driver -d jydoore --driver=test_driver/app.dart --target=test_driver/app_test.dart
           avd-name: jydoore
-      # Run Integration Tests
-      - name: Run Integration Tests
-        run: flutter driver -d jydoore --driver=test_driver/app.dart --target=test_driver/app_test.dart
         
       # Create Artifacts of Screenshots
       - name: Create Screetshots artifact
