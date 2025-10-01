@@ -39,7 +39,7 @@ jobs:
         with:
           api-level: 29
           # Run Integration Tests
-          script: flutter driver -d jydoore --driver=test_driver/app.dart --target=test_driver/app_test.dart
+          script: flutter driver -d emulator-5554 --driver=test_driver/app.dart --target=test_driver/app_test.dart
           avd-name: jydoore
         
       # Create Artifacts of Screenshots
