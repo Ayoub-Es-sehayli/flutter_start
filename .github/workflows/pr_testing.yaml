@@ -1,0 +1,48 @@
+name: jyDoore - PR Testing and Integration Workflow
+
+on:
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Pull Code base
+      - uses: actions/checkout@v4
+
+      # Setup flutter
+      - uses: subosito/flutter-action@v2.14.0
+
+      # Install project dependencies
+      - name: Install dependencies
+        run: flutter pub get
+
+      # Analyze project for errors
+      - name: Analyze project source
+        run: flutter analyze
+
+      # Test the project
+      - name: Run tests
+        run: flutter test --reporter=github
+
+      # Enable Emulator
+      - name: Enable KVM
+        run: |
+            echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+            sudo udevadm control --reload-rules
+            sudo udevadm trigger --name-match=kvm
+
+      - name: run tests
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 29
+          avd-name: jydoore
+          script: flutter driver -d jydoore --driver=test_driver/app.dart --target=test_driver/app_test.dart
+
+      - name: Create Screetshots artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: integration_screenshots
+          path: screenshots
